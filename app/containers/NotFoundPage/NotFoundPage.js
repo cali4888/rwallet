@@ -11,7 +11,7 @@ import './style.scss';
 export default function NotFound() {
   return (
     <article>
-      <h1>Page not found.</h1>
+      <h1>Whoops. This page does not exist. Try to check out FAQ.</h1>
     </article>
   );
 }

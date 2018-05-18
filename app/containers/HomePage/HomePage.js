@@ -31,25 +31,31 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
     return (
       <article>
         <Helmet>
-          <title>Home Page</title>
-          <meta name="description" content="A React.js Boilerplate application homepage" />
+          <title>CryptoWalletTracker</title>
         </Helmet>
         <div className="home-page">
-          <section className="centered">
-            <h2>Start your next react project in seconds</h2>
-            <p>A minimal <i>React-Redux</i> boilerplate with all the best practices</p>
-          </section>
           <section>
-            <h2>Try me!</h2>
+            <h2>Add a Wallet</h2>
             <form onSubmit={this.props.onSubmitForm}>
-              <label htmlFor="username">
-              Show Github repositories by
+              <label htmlFor="walletType">
+              Type
                 <span className="at-prefix">@</span>
                 <input
-                  id="username"
+                  id="walletType"
                   type="text"
-                  placeholder="flexdinesh"
-                  value={this.props.username}
+                  placeholder="Bitcoin"
+                  value={this.props.walletType}
+                  onChange={this.props.onChangeUsername}
+                />
+              </label>
+              <label htmlFor="walletNumber">
+              Number
+                <span className="at-prefix">@</span>
+                <input
+                  id="walletNumber"
+                  type="text"
+                  placeholder="322"
+                  value={this.props.walletNumber}
                   onChange={this.props.onChangeUsername}
                 />
               </label>
