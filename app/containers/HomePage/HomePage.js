@@ -6,18 +6,26 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import Select from 'react-select';
 import { Helmet } from 'react-helmet';
 import ReposList from 'components/ReposList';
 import './style.scss';
+
+const walletTypes = [
+  { value: 'bitcoin', label: 'BitCoin' },
+  { value: 'ethereum', label: 'Ethereum' }
+];
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   /**
    * when initial state username is not null, submit the form to load repos
    */
   componentDidMount() {
+    /*
     if (this.props.username && this.props.username.trim().length > 0) {
       this.props.onSubmitForm();
     }
+    */
   }
 
   render() {
@@ -37,28 +45,28 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
           <section>
             <h2>Add a Wallet</h2>
             <form onSubmit={this.props.onSubmitForm}>
-              <label htmlFor="walletType">
-              Type
-                <span className="at-prefix">@</span>
+              <Select
+                className="walletType"
+                classNamePrefix="select"
+                defaultValue={walletTypes[0]}
+                isClearable="True"
+                isSearchable="True"
+                name="color"
+                options={walletTypes}
+              />
+              <label htmlFor="walletToken">
+              Token
+                <span className="at-prefix"></span>
                 <input
-                  id="walletType"
-                  type="text"
-                  placeholder="Bitcoin"
-                  value={this.props.walletType}
-                  onChange={this.props.onChangeUsername}
-                />
-              </label>
-              <label htmlFor="walletNumber">
-              Number
-                <span className="at-prefix">@</span>
-                <input
-                  id="walletNumber"
+                  id="walletToken"
                   type="text"
                   placeholder="322"
-                  value={this.props.walletNumber}
-                  onChange={this.props.onChangeUsername}
+                  value={this.props.walletToken}
                 />
               </label>
+              <button className="addWalletButton">
+                Add Wallet
+              </button>
             </form>
             <ReposList {...reposListProps} />
           </section>
@@ -79,6 +87,6 @@ HomePage.propTypes = {
     PropTypes.bool,
   ]),
   onSubmitForm: PropTypes.func,
-  username: PropTypes.string,
-  onChangeUsername: PropTypes.func,
+  walletType: PropTypes.string,
+  walletToken: PropTypes.string,
 };
