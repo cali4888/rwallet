@@ -19,20 +19,20 @@
   form {
     margin-bottom: 1em;
 
-    .walletType {
+    .coinType {
       width: 200px;
       display: inline-block;
       margin-right: 1em;
     }
 
-    #walletToken {
+    #coinToken {
       outline: none;
       border-bottom: 1px dotted #999;
       font-size: 11px;
       min-width: 390px;
     }
 
-    .addWalletButton {
+    .addCoinButton {
       border-color: hsl(0,0%,70%);
       border-radius: 4px;
       border-style: solid;

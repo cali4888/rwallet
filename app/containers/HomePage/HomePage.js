@@ -8,10 +8,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import { Helmet } from 'react-helmet';
-import ReposList from 'components/ReposList';
+import CoinsList from 'components/CoinsList';
 import './style.scss';
 
-const walletTypes = [
+const coinTypes = [
   { value: 'bitcoin', label: 'BitCoin' },
   { value: 'ethereum', label: 'Ethereum' }
 ];
@@ -21,16 +21,14 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
    * when initial state username is not null, submit the form to load repos
    */
   componentDidMount() {
-    /*
-    if (this.props.username && this.props.username.trim().length > 0) {
-      this.props.onSubmitForm();
+    if (this.props.walletID && this.props.walletID.trim().length > 0) {
+      this.props.changeWallet();
     }
-    */
   }
 
   render() {
     const { loading, error, repos } = this.props;
-    const reposListProps = {
+    const coinsListProps = {
       loading,
       error,
       repos,
@@ -43,32 +41,44 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
         </Helmet>
         <div className="home-page">
           <section>
-            <h2>Add a Wallet</h2>
-            <form onSubmit={this.props.onSubmitForm}>
+            <form onSubmit={this.props.changeWallet}>
+              <label htmlFor="walletID">
+              Wallet ID
+                <span className="at-prefix"></span>
+                <input
+                  id="walletID"
+                  type="text"
+                  placeholder="pisarukvadim@gmail.com"
+                  value={this.props.walletID}
+                />
+              </label>
+            </form>
+            <h2>Add a Coin</h2>
+            <form onSubmit={this.props.addCoin}>
               <Select
-                className="walletType"
+                className="coinType"
                 classNamePrefix="select"
-                defaultValue={walletTypes[0]}
+                defaultValue={coinTypes[0]}
                 isClearable="True"
                 isSearchable="True"
                 name="color"
-                options={walletTypes}
+                options={coinTypes}
               />
-              <label htmlFor="walletToken">
+              <label htmlFor="coinToken">
               Token
                 <span className="at-prefix"></span>
                 <input
-                  id="walletToken"
+                  id="coinToken"
                   type="text"
                   placeholder="322"
-                  value={this.props.walletToken}
+                  value={this.props.coinToken}
                 />
               </label>
-              <button className="addWalletButton">
+              <button className="addCoinButton">
                 Add Wallet
               </button>
             </form>
-            <ReposList {...reposListProps} />
+            <CoinsList {...coinsListProps} />
           </section>
         </div>
       </article>
@@ -86,7 +96,9 @@ HomePage.propTypes = {
     PropTypes.array,
     PropTypes.bool,
   ]),
-  onSubmitForm: PropTypes.func,
-  walletType: PropTypes.string,
-  walletToken: PropTypes.string,
+  walletID: PropTypes.string,
+  changeWallet: PropTypes.func,
+  addCoin: PropTypes.func,
+  coinType: PropTypes.string,
+  coinToken: PropTypes.string,
 };

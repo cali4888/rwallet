@@ -5,7 +5,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import ReposList from 'components/ReposList';
+import CoinsList from 'components/CoinsList';
 import HomePage from '../HomePage';
 import { mapDispatchToProps } from '../index';
 import { changeUsername } from '../actions';
@@ -17,7 +17,7 @@ describe('<HomePage />', () => {
       <HomePage loading error={false} repos={[]} />
     );
     expect(
-      renderedComponent.contains(<ReposList loading error={false} repos={[]} />)
+      renderedComponent.contains(<CoinsList loading error={false} repos={[]} />)
     ).toEqual(true);
   });
 

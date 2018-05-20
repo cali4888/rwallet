@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import List from 'components/List';
 import ListItem from 'components/ListItem';
 import LoadingIndicator from 'components/LoadingIndicator';
-import RepoListItem from 'containers/RepoListItem';
+import CoinListItem from 'containers/CoinListItem';
 
-const ReposList = ({ loading, error, repos }) => {
+const CoinsList = ({ loading, error, coins }) => {
   if (loading) {
     return <List component={LoadingIndicator} />;
   }
@@ -18,17 +18,17 @@ const ReposList = ({ loading, error, repos }) => {
     return <List component={ErrorComponent} />;
   }
 
-  if (repos !== false) {
-    return <List items={repos} component={RepoListItem} />;
+  if (coins !== false) {
+    return <List items={coins} component={CoinListItem} />;
   }
 
   return null;
 };
 
-ReposList.propTypes = {
+CoinsList.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.any,
-  repos: PropTypes.any
+  coins: PropTypes.any
 };
 
-export default ReposList;
+export default CoinsList;

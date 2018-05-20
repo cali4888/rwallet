@@ -10,7 +10,7 @@ import {
 } from 'containers/App/selectors';
 import { loadRepos } from '../App/actions';
 import { changeUsername } from './actions';
-import { makeSelectUsername } from './selectors';
+import { makeSelectWallet } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import HomePage from './HomePage';
@@ -25,7 +25,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = createStructuredSelector({
   repos: makeSelectRepos(),
-  username: makeSelectUsername(),
+  walletID: makeSelectWallet(),
   loading: makeSelectLoading(),
   error: makeSelectError()
 });

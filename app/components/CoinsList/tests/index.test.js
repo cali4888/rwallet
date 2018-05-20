@@ -1,14 +1,14 @@
 import { shallow, mount } from 'enzyme';
 import React from 'react';
 
-import RepoListItem from 'containers/RepoListItem';
+import CoinListItem from 'containers/CoinListItem';
 import List from 'components/List';
 import LoadingIndicator from 'components/LoadingIndicator';
-import ReposList from '../index';
+import CoinsList from '../index';
 
-describe('<ReposList />', () => {
+describe('<CoinsList />', () => {
   it('should render the loading indicator when its loading', () => {
-    const renderedComponent = shallow(<ReposList loading />);
+    const renderedComponent = shallow(<CoinsList loading />);
     expect(
       renderedComponent.contains(<List component={LoadingIndicator} />)
     ).toEqual(true);
@@ -16,7 +16,7 @@ describe('<ReposList />', () => {
 
   it('should render an error if loading failed', () => {
     const renderedComponent = mount(
-      <ReposList loading={false} error={{ message: 'Loading failed!' }} />
+      <CoinsList loading={false} error={{ message: 'Loading failed!' }} />
     );
     expect(renderedComponent.text()).toMatch(/Something went wrong/);
   });
@@ -34,19 +34,19 @@ describe('<ReposList />', () => {
       }
     ];
     const renderedComponent = shallow(
-      <ReposList repos={repos} error={false} />
+      <CoinsList repos={repos} error={false} />
     );
 
     expect(
       renderedComponent.contains(
-        <List items={repos} component={RepoListItem} />
+        <List items={repos} component={CoinListItem} />
       )
     ).toEqual(true);
   });
 
   it('should not render anything if nothing interesting is provided', () => {
     const renderedComponent = shallow(
-      <ReposList repos={false} error={false} loading={false} />
+      <CoinsList repos={false} error={false} loading={false} />
     );
 
     expect(renderedComponent.html()).toEqual(null);
