@@ -9,7 +9,10 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-export const LOAD_REPOS = 'boilerplate/App/LOAD_REPOS';
-export const LOAD_REPOS_SUCCESS = 'boilerplate/App/LOAD_REPOS_SUCCESS';
-export const LOAD_REPOS_ERROR = 'boilerplate/App/LOAD_REPOS_ERROR';
+export const LOAD_COINS = 'rwallet/App/LOAD_COINS';
+export const LOAD_COINS_SUCCESS = 'rwallet/App/LOAD_COINS_SUCCESS';
+export const LOAD_COINS_ERROR = 'rwallet/App/LOAD_COINS_ERROR';
+export const LOAD_COINS_LIST = 'rwallet/App/LOAD_COINS_LIST';
+export const LOAD_COINS_LIST_SUCCESS = 'rwallet/App/LOAD_COINS_SUCCESS_LIST';
+export const LOAD_COINS_LIST_ERROR = 'rwallet/App/LOAD_COINS_ERROR_LIST';
 export const DEFAULT_LOCALE = 'en';

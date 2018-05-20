@@ -37,6 +37,7 @@ export function injectSagaFactory(store, isValid) {
     const { saga, mode } = newDescriptor;
 
     checkKey(key);
+    // console.log(descriptor);
     checkDescriptor(newDescriptor);
 
     let hasSaga = Reflect.has(store.injectedSagas, key);

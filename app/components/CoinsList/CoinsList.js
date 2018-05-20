@@ -18,7 +18,7 @@ const CoinsList = ({ loading, error, coins }) => {
     return <List component={ErrorComponent} />;
   }
 
-  if (coins !== false) {
+  if (coins !== false && coins !== undefined) {
     return <List items={coins} component={CoinListItem} />;
   }
 

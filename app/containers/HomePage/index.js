@@ -4,27 +4,26 @@ import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import {
-  makeSelectRepos,
+  makeSelectWallet,
   makeSelectLoading,
   makeSelectError
 } from 'containers/App/selectors';
-import { loadRepos } from '../App/actions';
-import { changeUsername } from './actions';
-import { makeSelectWallet } from './selectors';
+import { loadCoins } from '../App/actions';
+import { changeWallet } from './actions';
+// import { makeSelectWallet } from './selectors';
 import reducer from './reducer';
-import saga from './saga';
+import { availableCoins } from './saga';
 import HomePage from './HomePage';
 
 const mapDispatchToProps = (dispatch) => ({
-  onChangeUsername: (evt) => dispatch(changeUsername(evt.target.value)),
+  onChangeUsername: (evt) => dispatch(changeWallet(evt.target.value)),
   onSubmitForm: (evt) => {
     if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-    dispatch(loadRepos());
+    dispatch(loadCoins());
   }
 });
 
 const mapStateToProps = createStructuredSelector({
-  repos: makeSelectRepos(),
   walletID: makeSelectWallet(),
   loading: makeSelectLoading(),
   error: makeSelectError()
@@ -33,7 +32,7 @@ const mapStateToProps = createStructuredSelector({
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'home', reducer });
-const withSaga = injectSaga({ key: 'home', saga });
+const withSaga = injectSaga({ key: 'home', availableCoins });
 
 export default compose(withReducer, withSaga, withConnect)(HomePage);
 export { mapDispatchToProps };

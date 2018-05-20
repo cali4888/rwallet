@@ -1,16 +1,16 @@
 {
-  "name": "react-redux-boilerplate",
+  "name": "rwallet-webapp",
   "version": "1.0.0",
-  "description": "A minimal react-redux boilerplate with all the best practices",
+  "description": "Crypto Wallet Tracker",
   "repository": {
     "type": "git",
-    "url": "git://github.com/flexdinesh/react-redux-boilerplate.git"
+    "url": ""
   },
   "engines": {
     "npm": ">=3",
     "node": ">=5"
   },
-  "author": "Dinesh Pandiyan",
+  "author": "Egor Dezhic, Vadim Pisaruk",
   "license": "MIT",
   "scripts": {
     "prebuild": "npm run build:clean",
@@ -26,12 +26,18 @@
     "lint:js": "npm run lint:eslint -- . ",
     "pretest": "npm run test:clean && npm run lint",
     "test:clean": "rimraf ./coverage",
-    "test": "cross-env NODE_ENV=test jest --coverage",
-    "test:watch": "cross-env NODE_ENV=test jest --watchAll"
+    "test": "cross-env NODE_ENV=testing jest --coverage",
+    "test:watch": "cross-env NODE_ENV=testing jest --watchAll"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.jsx$": "babel-jest",
+      "^.+\\.js$": "babel-jest"
+    }
   },
   "dependencies": {
     "babel-polyfill": "6.26.0",
-    "chalk": "^2.3.2",
+    "chalk": "^2.4.1",
     "compression": "1.7.2",
     "cross-env": "5.1.4",
     "express": "4.16.3",

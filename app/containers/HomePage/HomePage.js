@@ -27,11 +27,11 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
   }
 
   render() {
-    const { loading, error, repos } = this.props;
+    const { loading, error, coins } = this.props;
     const coinsListProps = {
       loading,
       error,
-      repos,
+      coins,
     };
 
     return (
@@ -92,7 +92,7 @@ HomePage.propTypes = {
     PropTypes.object,
     PropTypes.bool,
   ]),
-  repos: PropTypes.oneOfType([
+  coins: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.bool,
   ]),

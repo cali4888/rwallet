@@ -19,6 +19,11 @@
       ]
     },
     "test": {
+      "presets": [
+        ["env", { "modules": false }],
+        "react",
+        "stage-0"
+      ],
       "plugins": ["transform-es2015-modules-commonjs", "dynamic-import-node"]
     }
   }

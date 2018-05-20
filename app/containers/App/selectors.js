@@ -23,9 +23,9 @@ const makeSelectError = () => createSelector(
   (globalState) => globalState.get('error')
 );
 
-const makeSelectRepos = () => createSelector(
+const makeSelectWallet = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.getIn(['userData', 'repositories'])
+  (globalState) => globalState.getIn(['userData', 'walletID'])
 );
 
 const makeSelectLocation = () => createSelector(
@@ -38,6 +38,6 @@ export {
   makeSelectCurrentUser,
   makeSelectLoading,
   makeSelectError,
-  makeSelectRepos,
+  makeSelectWallet,
   makeSelectLocation,
 };
