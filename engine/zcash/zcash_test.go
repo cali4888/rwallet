@@ -13,3 +13,13 @@ func TestBalance(t *testing.T) {
 
 	t.Log(balance)
 }
+
+func TestCoinPriceInFiat(t *testing.T) {
+	cm := CoinManager{}
+	price, err := cm.CoinPriceInFiat()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	t.Log(price)
+}

@@ -4,21 +4,32 @@ import (
 	"errors"
 	"log"
 	"net/http"
+	"time"
 )
 
 type App struct {
 	walletManager WalletManager
-	coinManagers  map[string]CoinManager
+	coinManagers  map[string]CoinApi
 }
 
-func NewApp(wm WalletManager, mngs ...CoinManager) *App {
+func NewApp(wm WalletManager, mngs ...CoinApi) *App {
 	app := &App{
 		walletManager: wm,
-		coinManagers:  make(map[string]CoinManager),
+		coinManagers:  make(map[string]CoinApi),
 	}
 
 	for _, mg := range mngs {
 		app.coinManagers[mg.Type()] = mg
+
+		price, err := mg.CoinPriceInFiat()
+		if err != nil {
+			log.Printf("[ERROR] Can't get price for:%v error:%v", mg.Type(), err)
+		}
+
+		err = app.walletManager.SetCoinPrice(mg.Type(), price)
+		if err != nil {
+			log.Printf("[ERROR] Can't save coint price for:%v error:%s", mg.Type(), err)
+		}
 	}
 
 	return app
@@ -69,8 +80,15 @@ func (a *App) AddCoin(email string, coin Coin) (*Wallet, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	coin.Balance = balance
+
+	price, err := a.walletManager.GetCoinPrice(coin.Type)
+	if err != nil {
+		log.Println("[ERROR] Can't get price for:%v err:%s", coin.Type, err)
+	}
+	coin.CoinPrice = price
+
+	coin.LastUpdate = time.Now().Unix()
 
 	wallet.Coins = append(wallet.Coins, coin)
 	err = a.walletManager.Put(wallet)

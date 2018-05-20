@@ -9,6 +9,7 @@ import (
 const (
 	coinType           = "ZEC"
 	apiBalanceTemplate = "https://api.zcha.in/v2/mainnet/accounts/%s"
+	apiPriceURL        = "https://min-api.cryptocompare.com/data/price?fsym=ZEC&tsyms=USD"
 )
 
 type zchaAccountResponse struct {
@@ -49,6 +50,24 @@ func (c *CoinManager) Type() string {
 	return coinType
 }
 
-func (c *CoinManager) ValueInFiat() (float64, error) {
-	panic("not implemented")
+func (c *CoinManager) CoinPriceInFiat() (float64, error) {
+	r, err := c.Get(apiPriceURL)
+	if err != nil {
+		return 0, err
+	}
+
+	decoder := json.NewDecoder(r.Body)
+
+	var apiResp map[string]float64
+	err = decoder.Decode(&apiResp)
+	if err != nil {
+		return 0, err
+	}
+
+	v, ok := apiResp["USD"]
+	if !ok {
+		return 0, fmt.Errorf("Api err")
+	}
+
+	return v, nil
 }

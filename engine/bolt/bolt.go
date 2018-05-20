@@ -5,11 +5,18 @@ import (
 	"fmt"
 	"github.com/cali4888/rwallet/engine"
 	"github.com/coreos/bbolt"
+	"time"
 )
 
 const (
-	walletsBucket = "wallets"
+	walletsBucket     = "wallets"
+	coinsPricesBucket = "prices"
 )
+
+type coinPrice struct {
+	Price      float64 `json:"price"`
+	UpdateTime int64   `json:"update_time"`
+}
 
 type WalletManager struct {
 	db *bolt.DB
@@ -80,4 +87,57 @@ func (w *WalletManager) Delete(email string) error {
 
 		return bucket.Delete([]byte(email))
 	})
+}
+
+func (w *WalletManager) SetCoinPrice(coinType string, price float64) error {
+	return w.db.Update(func(tx *bolt.Tx) error {
+		bucket, err := tx.CreateBucketIfNotExists([]byte(coinsPricesBucket))
+		if err != nil {
+			return err
+		}
+
+		coinPrice := coinPrice{
+			Price:      price,
+			UpdateTime: time.Now().Unix(),
+		}
+
+		bytes, err := json.Marshal(coinPrice)
+		if err != nil {
+			return err
+		}
+
+		return bucket.Put([]byte(coinType), bytes)
+	})
+}
+
+func (w *WalletManager) GetCoinPrice(coinType string) (float64, error) {
+	var coinp *coinPrice
+
+	err := w.db.Update(func(tx *bolt.Tx) error {
+		bucket, err := tx.CreateBucketIfNotExists([]byte(coinsPricesBucket))
+		if err != nil {
+			return err
+		}
+
+		bytes := bucket.Get([]byte(coinType))
+		if bytes == nil {
+			return fmt.Errorf("No price for:%s", coinType)
+		}
+
+		var tcoinp coinPrice
+		err = json.Unmarshal(bytes, &tcoinp)
+		if err != nil {
+			return err
+		}
+
+		coinp = &tcoinp
+
+		return bucket.Put([]byte(coinType), bytes)
+	})
+
+	if err != nil {
+		return 0, err
+	}
+
+	return coinp.Price, nil
 }
