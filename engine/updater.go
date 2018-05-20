@@ -6,11 +6,15 @@ import (
 )
 
 type Updater struct {
-	app *App
+	app         *App
+	rateLimiter <-chan time.Time
 }
 
 func NewUpdater(app *App) *Updater {
-	return &Updater{app}
+	return &Updater{
+		app:         app,
+		rateLimiter: time.Tick(time.Second / 5),
+	}
 }
 
 func (u *Updater) Run() {
@@ -51,9 +55,8 @@ func (u *Updater) updateBalance() error {
 }
 
 func (u *Updater) updateWallet(wallet *Wallet) error {
-	t := time.Tick(time.Second / 5)
 	for i, coin := range wallet.Coins {
-		<-t
+		<-u.rateLimiter
 		api, err := u.app.GetCoinApi(coin.Type)
 		if err != nil {
 			log.Printf("[ERROR] Can't get coin api err:%v", err)
