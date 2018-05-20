@@ -16,6 +16,9 @@ func main() {
 
 	app := engine.NewApp(wm, cm)
 
+	updater := engine.NewUpdater(app)
+	go updater.Run()
+
 	err = app.StartServer()
 	if err != nil {
 		panic(err)

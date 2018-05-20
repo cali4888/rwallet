@@ -35,6 +35,27 @@ func NewWalletManaget() (*WalletManager, error) {
 	return wm, nil
 }
 
+func (w *WalletManager) GetAllEmails() ([]string, error) {
+	var emails []string
+	err := w.db.Update(func(tx *bolt.Tx) error {
+		bucket, err := tx.CreateBucketIfNotExists([]byte(walletsBucket))
+		if err != nil {
+			return err
+		}
+		err = bucket.ForEach(func(k, v []byte) error {
+			emails = append(emails, string(k))
+			return nil
+		})
+		if err != nil {
+			return err
+		}
+
+		return nil
+	})
+
+	return emails, err
+}
+
 func (w *WalletManager) Get(email string) (*engine.Wallet, error) {
 	var wallet *engine.Wallet
 

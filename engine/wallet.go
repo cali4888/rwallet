@@ -1,6 +1,7 @@
 package engine
 
 type WalletManager interface {
+	GetAllEmails() ([]string, error)
 	Get(email string) (*Wallet, error)
 	Put(wallet *Wallet) error
 	Delete(email string) error

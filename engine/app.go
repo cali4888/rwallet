@@ -2,6 +2,7 @@ package engine
 
 import (
 	"errors"
+	"fmt"
 	"log"
 	"net/http"
 	"time"
@@ -55,8 +56,25 @@ func (a *App) CreateWallet(email string) (*Wallet, error) {
 	return wallet, err
 }
 
+func (a *App) GetWalletEmails() ([]string, error) {
+	return a.walletManager.GetAllEmails()
+}
+
 func (a *App) GetWallet(email string) (*Wallet, error) {
 	return a.walletManager.Get(email)
+}
+
+func (a *App) GetCoinApi(coinType string) (CoinApi, error) {
+	api, ok := a.coinManagers[coinType]
+	if !ok {
+		return nil, fmt.Errorf("unsupported coin:%v", coinType)
+	}
+
+	return api, nil
+}
+
+func (a *App) PutWallet(wallet *Wallet) error {
+	return a.walletManager.Put(wallet)
 }
 
 func (a *App) AddCoin(email string, coin Coin) (*Wallet, error) {
