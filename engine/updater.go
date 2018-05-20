@@ -51,7 +51,9 @@ func (u *Updater) updateBalance() error {
 }
 
 func (u *Updater) updateWallet(wallet *Wallet) error {
+	t := time.Tick(time.Second / 5)
 	for i, coin := range wallet.Coins {
+		<-t
 		api, err := u.app.GetCoinApi(coin.Type)
 		if err != nil {
 			log.Printf("[ERROR] Can't get coin api err:%v", err)
