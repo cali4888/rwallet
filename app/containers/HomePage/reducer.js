@@ -21,7 +21,7 @@ const initialState = fromJS({
 function homeReducer(state = initialState, action) {
   switch (action.type) {
     case CHANGE_WALLET:
-      return state.set('walletID', action.id);
+      return state.set('walletID', action.walletID);
     default:
       return state;
   }

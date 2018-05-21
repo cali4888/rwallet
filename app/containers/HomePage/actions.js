@@ -24,9 +24,9 @@ import { CHANGE_WALLET } from './constants';
  *
  * @return {object}    An action object with a type of CHANGE_USERNAME
  */
-export function changeWallet(id) {
+export function changeWallet(walletID) {
   return {
     type: CHANGE_WALLET,
-    id
+    walletID
   };
 }
