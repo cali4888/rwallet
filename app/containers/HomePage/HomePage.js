@@ -61,7 +61,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
                 defaultValue={coinTypes[0]}
                 isClearable="True"
                 isSearchable="True"
-                name="color"
+                name="coinType"
                 options={coinTypes}
               />
               <label htmlFor="coinToken">

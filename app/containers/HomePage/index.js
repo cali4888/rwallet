@@ -32,7 +32,7 @@ const mapStateToProps = createStructuredSelector({
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'home', reducer });
-const withSaga = injectSaga({ key: 'home', availableCoins });
+const withSaga = injectSaga({ key: 'home', saga: availableCoins });
 
 export default compose(withReducer, withSaga, withConnect)(HomePage);
 export { mapDispatchToProps };
