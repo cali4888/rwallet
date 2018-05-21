@@ -56,6 +56,7 @@ function appReducer(state = initialState, action) {
         .set('loading', true)
         .set('error', false);
     case LOAD_COINS_LIST_SUCCESS:
+      console.log(action.availableCoins);
       return state
         .set('availableCoins', action.availableCoins)
         .set('loading', false);

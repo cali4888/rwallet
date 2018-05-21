@@ -12,14 +12,8 @@ import CoinsList from 'components/CoinsList';
 import './style.scss';
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  /**
-   * when initial state username is not null, submit the form to load repos
-   */
   componentDidMount() {
-    if (this.props.walletID && this.props.walletID.trim().length > 0) {
-      this.props.onChangeWallet();
-    }
-    // this.props.loadCoinsList();
+    this.props.loadCoinsList();
   }
 
   render() {
@@ -39,7 +33,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
         </Helmet>
         <div className="home-page">
           <section>
-            <form onSubmit={this.props.onChangeWallet}>
+            <form onSubmit={this.props.onSubmitWallet}>
               <label htmlFor="walletID">
               Wallet ID
                 <span className="at-prefix"></span>
@@ -48,6 +42,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
                   type="text"
                   placeholder="your@email.com"
                   value={this.props.walletID}
+                  onChange={this.props.onChangeWallet}
                 />
               </label>
             </form>
@@ -98,6 +93,7 @@ HomePage.propTypes = {
   availableCoins: PropTypes.array,
   walletID: PropTypes.string,
   onChangeWallet: PropTypes.func,
+  onSubmitWallet: PropTypes.func,
   onAddCoin: PropTypes.func,
   coinType: PropTypes.string,
   coinToken: PropTypes.string,

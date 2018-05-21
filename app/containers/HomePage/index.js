@@ -23,6 +23,11 @@ import HomePage from './HomePage';
 const mapDispatchToProps = (dispatch) => ({
   onChangeWallet: (evt) => {
     if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+    const newWalletID = evt.target.value;
+    dispatch(changeWallet(newWalletID));
+  },
+  onSubmitWallet: (evt) => {
+    if (evt !== undefined && evt.preventDefault) evt.preventDefault();
     const newWalletID = evt.target.querySelector('#walletID').value;
     dispatch(changeWallet(newWalletID));
     dispatch(loadCoins());

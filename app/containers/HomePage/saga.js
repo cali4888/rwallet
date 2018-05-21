@@ -18,7 +18,7 @@ export function* getAvailableCoins() {
 
   try {
     const availableCoinsList = yield call(request, requestURL);
-    yield put(coinsListLoaded(availableCoinsList));
+    yield put(coinsListLoaded(availableCoinsList.data));
   } catch (err) {
     yield put(coinListLoadingError(err));
   }
