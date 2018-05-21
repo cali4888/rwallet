@@ -16,8 +16,11 @@ import { availableCoins } from './saga';
 import HomePage from './HomePage';
 
 const mapDispatchToProps = (dispatch) => ({
-  onChangeUsername: (evt) => dispatch(changeWallet(evt.target.value)),
-  onSubmitForm: (evt) => {
+  onChangeWallet: (evt) => {
+    if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+    dispatch(changeWallet(evt.target.value));
+  },
+  onAddCoin: (evt) => {
     if (evt !== undefined && evt.preventDefault) evt.preventDefault();
     dispatch(loadCoins());
   }
