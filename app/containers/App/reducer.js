@@ -26,6 +26,7 @@ import {
 const initialState = fromJS({
   loading: false,
   error: false,
+  loggedIn: false,
   availableCoins: [],
   walletID: 'pisarukvadim@gmail.com',
   wallet: {
@@ -37,7 +38,8 @@ function appReducer(state = initialState, action) {
   switch (action.type) {
     case CHANGE_WALLET:
       return state
-        .set('walletID', action.walletID);
+        .set('walletID', action.walletID)
+        .set('loggedIn', false);
     case LOAD_COINS:
       return state
         .set('loading', true)
@@ -46,11 +48,13 @@ function appReducer(state = initialState, action) {
     case LOAD_COINS_SUCCESS:
       return state
         .setIn(['wallet', 'coins'], action.coins)
-        .set('loading', false);
+        .set('loading', false)
+        .set('loggedIn', true);
     case LOAD_COINS_ERROR:
       return state
         .set('error', action.error)
-        .set('loading', false);
+        .set('loading', false)
+        .set('loggedIn', false);
     case LOAD_COINS_LIST:
       return state
         .set('loading', true)

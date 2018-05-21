@@ -14,16 +14,6 @@ export default class CoinListItem extends React.PureComponent { // eslint-disabl
   render() {
     const { item } = this.props;
 
-    // If the repository is owned by a different person than we got the data for
-    // it's a fork and we should show the name of the owner
-    /*
-    let nameprefix = '';
-    if (item.owner.login !== this.props.currentUser) {
-      nameprefix = `${item.owner.login}/`;
-    }
-    */
-
-    // Put together the content of the repository
     const content = (
       <div className="coin-list-item">
         <div className="coin-list-item__type">

@@ -26,6 +26,15 @@ const Button = (props) => {
     );
   }
 
+  // If the Button has a fa prop, we want to render an icon button
+  if (props.fa) {
+    return (
+      <button className={props.class} onClick={props.handleRoute}>
+        <i className={props.fa} />
+      </button>
+    );
+  }
+
   return (
     <div className="button-wrapper">
       {button}
@@ -35,9 +44,11 @@ const Button = (props) => {
 
 Button.propTypes = {
   handleRoute: PropTypes.func,
+  fa: PropTypes.string,
+  class: PropTypes.string,
   href: PropTypes.string,
   onClick: PropTypes.func,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };
 
 export default Button;

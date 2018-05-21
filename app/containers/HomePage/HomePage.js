@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import Select from 'react-select';
 import { Helmet } from 'react-helmet';
 import CoinsList from 'components/CoinsList';
+import Button from 'components/Button';
 import './style.scss';
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -17,14 +18,32 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
   }
 
   render() {
-    const { loading, error, coins } = this.props;
+    const {
+      loggedIn, loading, error, coins
+    } = this.props;
+
+    const availableCoins = this.props.availableCoins.map((coin) => ({ value: coin, label: coin }));
+
+    const signInButtonProps = {
+      fa: loggedIn ? 'fa fas fa-check' : 'fa fas fa-sign-in-alt',
+      class: 'signIn'
+    };
+
+    const coinSelectListProps = {
+      className: 'coinType',
+      classNamePrefix: 'select',
+      defaultValue: availableCoins[0],
+      isClearable: 'True',
+      isSearchable: 'True',
+      name: 'coinType',
+      options: availableCoins,
+    };
+
     const coinsListProps = {
       loading,
       error,
       coins,
     };
-
-    const availableCoins = this.props.availableCoins.map((coin) => ({ value: coin, label: coin }));
 
     return (
       <article>
@@ -33,7 +52,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
         </Helmet>
         <div className="home-page">
           <section>
-            <form onSubmit={this.props.onSubmitWallet}>
+            <form onSubmit={this.props.onSignIn}>
               <label htmlFor="walletID">
                 <i className="far fa-envelope"></i>
                 <input
@@ -42,22 +61,12 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
                   value={this.props.walletID}
                   onChange={this.props.onChangeWallet}
                 />
-                <button className="submitWallet">
-                  <i className="fas fa-check"></i>
-                </button>
+                <Button {...signInButtonProps} />
               </label>
             </form>
 
             <form onSubmit={this.props.onAddCoin}>
-              <Select
-                className="coinType"
-                classNamePrefix="select"
-                defaultValue={availableCoins[0]}
-                isClearable="True"
-                isSearchable="True"
-                name="coinType"
-                options={availableCoins}
-              />
+              <Select {...coinSelectListProps} />
               <label htmlFor="coinToken">
               Token
                 <span className="at-prefix"></span>
@@ -90,11 +99,12 @@ HomePage.propTypes = {
     PropTypes.array,
     PropTypes.bool,
   ]),
+  loggedIn: PropTypes.bool,
   loadCoinsList: PropTypes.func,
   availableCoins: PropTypes.array,
   walletID: PropTypes.string,
   onChangeWallet: PropTypes.func,
-  onSubmitWallet: PropTypes.func,
+  onSignIn: PropTypes.func,
   onAddCoin: PropTypes.func,
   coinType: PropTypes.string,
   coinToken: PropTypes.string,

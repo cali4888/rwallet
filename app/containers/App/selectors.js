@@ -18,6 +18,11 @@ const makeSelectError = () => createSelector(
   (globalState) => globalState.get('error')
 );
 
+const makeSelectLoggedIn = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('loggedIn')
+);
+
 const makeSelectWallet = () => createSelector(
   selectGlobal,
   (globalState) => globalState.get('walletID')
@@ -42,6 +47,7 @@ export {
   selectGlobal,
   makeSelectLoading,
   makeSelectError,
+  makeSelectLoggedIn,
   makeSelectWallet,
   makeSelectCoins,
   makeSelectAvailableCoins,

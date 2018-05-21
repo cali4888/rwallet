@@ -8,7 +8,8 @@ import {
   makeSelectCoins,
   makeSelectAvailableCoins,
   makeSelectLoading,
-  makeSelectError
+  makeSelectError,
+  makeSelectLoggedIn
 } from 'containers/App/selectors';
 import {
   changeWallet,
@@ -26,7 +27,7 @@ const mapDispatchToProps = (dispatch) => ({
     const newWalletID = evt.target.value;
     dispatch(changeWallet(newWalletID));
   },
-  onSubmitWallet: (evt) => {
+  onSignIn: (evt) => {
     if (evt !== undefined && evt.preventDefault) evt.preventDefault();
     dispatch(loadCoins());
   },
@@ -44,7 +45,8 @@ const mapStateToProps = createStructuredSelector({
   coins: makeSelectCoins(),
   availableCoins: makeSelectAvailableCoins(),
   loading: makeSelectLoading(),
-  error: makeSelectError()
+  error: makeSelectError(),
+  loggedIn: makeSelectLoggedIn()
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
