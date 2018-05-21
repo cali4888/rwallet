@@ -20,12 +20,17 @@ const makeSelectError = () => createSelector(
 
 const makeSelectWallet = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.getIn(['wallet', 'walletID'])
+  (globalState) => globalState.get('walletID')
 );
 
 const makeSelectCoins = () => createSelector(
   selectGlobal,
   (globalState) => globalState.getIn(['wallet', 'coins'])
+);
+
+const makeSelectAvailableCoins = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('availableCoins')
 );
 
 const makeSelectLocation = () => createSelector(
@@ -39,5 +44,6 @@ export {
   makeSelectError,
   makeSelectWallet,
   makeSelectCoins,
+  makeSelectAvailableCoins,
   makeSelectLocation,
 };

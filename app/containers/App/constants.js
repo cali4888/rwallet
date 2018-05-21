@@ -9,6 +9,8 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
+export const CHANGE_WALLET = 'rwallet/Home/CHANGE_WALLET';
+export const ADD_COIN = 'rwallet/App/ADD_COIN';
 export const LOAD_COINS = 'rwallet/App/LOAD_COINS';
 export const LOAD_COINS_SUCCESS = 'rwallet/App/LOAD_COINS_SUCCESS';
 export const LOAD_COINS_ERROR = 'rwallet/App/LOAD_COINS_ERROR';

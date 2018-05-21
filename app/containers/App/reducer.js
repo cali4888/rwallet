@@ -13,6 +13,7 @@
 import { fromJS } from 'immutable';
 
 import {
+  CHANGE_WALLET,
   LOAD_COINS_SUCCESS,
   LOAD_COINS,
   LOAD_COINS_ERROR,
@@ -25,7 +26,8 @@ import {
 const initialState = fromJS({
   loading: false,
   error: false,
-  walletID: false,
+  availableCoins: ['ZEC'],
+  walletID: '',
   wallet: {
     coins: false,
   },
@@ -33,6 +35,9 @@ const initialState = fromJS({
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
+    case CHANGE_WALLET:
+      return state
+        .set('walletID', action.walletID);
     case LOAD_COINS:
       return state
         .set('loading', true)
@@ -41,8 +46,7 @@ function appReducer(state = initialState, action) {
     case LOAD_COINS_SUCCESS:
       return state
         .setIn(['wallet', 'coins'], action.coins)
-        .set('loading', false)
-        .set('walletID', action.walletID);
+        .set('loading', false);
     case LOAD_COINS_ERROR:
       return state
         .set('error', action.error)
@@ -50,13 +54,11 @@ function appReducer(state = initialState, action) {
     case LOAD_COINS_LIST:
       return state
         .set('loading', true)
-        .set('error', false)
-        .setIn(['wallet', 'coins'], false);
+        .set('error', false);
     case LOAD_COINS_LIST_SUCCESS:
       return state
-        .setIn(['wallet', 'coins'], action.coins)
-        .set('loading', false)
-        .set('walletID', action.walletID);
+        .set('availableCoins', action.availableCoins)
+        .set('loading', false);
     case LOAD_COINS_LIST_ERROR:
       return state
         .set('error', action.error)

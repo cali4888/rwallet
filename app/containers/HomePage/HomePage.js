@@ -11,11 +11,6 @@ import { Helmet } from 'react-helmet';
 import CoinsList from 'components/CoinsList';
 import './style.scss';
 
-const coinTypes = [
-  { value: 'bitcoin', label: 'BitCoin' },
-  { value: 'ethereum', label: 'Ethereum' }
-];
-
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   /**
    * when initial state username is not null, submit the form to load repos
@@ -24,6 +19,8 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
     if (this.props.walletID && this.props.walletID.trim().length > 0) {
       this.props.onChangeWallet();
     }
+    console.log(this.props.availableCoins);
+    // this.props.loadCoinsList();
   }
 
   render() {
@@ -48,7 +45,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
                 <input
                   id="walletID"
                   type="text"
-                  placeholder="pisarukvadim@gmail.com"
+                  placeholder="your@email.com"
                   value={this.props.walletID}
                 />
               </label>
@@ -58,11 +55,11 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
               <Select
                 className="coinType"
                 classNamePrefix="select"
-                defaultValue={coinTypes[0]}
+                defaultValue={this.props.availableCoins[0]}
                 isClearable="True"
                 isSearchable="True"
                 name="coinType"
-                options={coinTypes}
+                options={this.props.availableCoins}
               />
               <label htmlFor="coinToken">
               Token
@@ -96,6 +93,8 @@ HomePage.propTypes = {
     PropTypes.array,
     PropTypes.bool,
   ]),
+  loadCoinsList: PropTypes.func,
+  availableCoins: PropTypes.array,
   walletID: PropTypes.string,
   onChangeWallet: PropTypes.func,
   onAddCoin: PropTypes.func,

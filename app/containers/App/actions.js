@@ -16,6 +16,8 @@
  */
 
 import {
+  CHANGE_WALLET,
+  ADD_COIN,
   LOAD_COINS,
   LOAD_COINS_SUCCESS,
   LOAD_COINS_ERROR,
@@ -23,6 +25,32 @@ import {
   LOAD_COINS_LIST_SUCCESS,
   LOAD_COINS_LIST_ERROR,
 } from './constants';
+
+/**
+ * Changes the input field of the form
+ *
+ * @param  {name} name The new text of the input field
+ *
+ * @return {object}    An action object with a type of CHANGE_USERNAME
+ */
+export function changeWallet(walletID) {
+  return {
+    type: CHANGE_WALLET,
+    walletID
+  };
+}
+
+
+/**
+ * Load the repositories, this action starts the request saga
+ *
+ * @return {object} An action object with a type of LOAD_REPOS
+ */
+export function addCoin() {
+  return {
+    type: ADD_COIN,
+  };
+}
 
 /**
  * Load the repositories, this action starts the request saga

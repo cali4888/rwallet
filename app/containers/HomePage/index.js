@@ -6,13 +6,12 @@ import injectSaga from 'utils/injectSaga';
 import {
   makeSelectWallet,
   makeSelectCoins,
+  makeSelectAvailableCoins,
   makeSelectLoading,
   makeSelectError
 } from 'containers/App/selectors';
-import { loadCoins } from '../App/actions';
-import { changeWallet } from './actions';
-// import { makeSelectWallet } from './selectors';
-import reducer from './reducer';
+import { changeWallet, addCoin, loadCoins, loadCoinsList } from '../App/actions';
+import reducer from '../App/reducer';
 import { availableCoins } from './saga';
 import HomePage from './HomePage';
 
@@ -21,16 +20,21 @@ const mapDispatchToProps = (dispatch) => ({
     if (evt !== undefined && evt.preventDefault) evt.preventDefault();
     const newWalletID = evt.target.querySelector('#walletID').value;
     dispatch(changeWallet(newWalletID));
+    dispatch(loadCoins());
   },
   onAddCoin: (evt) => {
     if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-    dispatch(loadCoins());
+    dispatch(addCoin());
+  },
+  loadCoinsList: () => {
+    dispatch(loadCoinsList());
   }
 });
 
 const mapStateToProps = createStructuredSelector({
   walletID: makeSelectWallet(),
   coins: makeSelectCoins(),
+  availableCoins: makeSelectAvailableCoins(),
   loading: makeSelectLoading(),
   error: makeSelectError()
 });

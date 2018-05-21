@@ -3,25 +3,22 @@
  */
 
 import { call, put, select, takeLatest } from 'redux-saga/effects';
+import request from 'utils/request';
+
 import { LOAD_COINS, LOAD_COINS_LIST } from 'containers/App/constants';
 import { coinsLoaded, coinLoadingError, coinsListLoaded, coinListLoadingError } from 'containers/App/actions';
-
-import request from 'utils/request';
-import { makeSelectWallet } from 'containers/HomePage/selectors';
+import { makeSelectWallet } from 'containers/App/selectors';
 
 /**
  * API request/response handler
  */
 
 export function* getAvailableCoins() {
-  // Select username from store
-  const walletID = yield select(makeSelectWallet());
-  const requestURL = 'https://api.github.com/users/repos?type=all&sort=updated';
+  const requestURL = 'http://localhost:8091/v1/supportedcoins';
 
   try {
-    // Call our request helper (see 'utils/request')
-    const coinsList = yield call(request, requestURL);
-    yield put(coinsListLoaded(coinsList, walletID));
+    const availableCoinsList = yield call(request, requestURL);
+    yield put(coinsListLoaded(availableCoinsList));
   } catch (err) {
     yield put(coinListLoadingError(err));
   }
