@@ -10,7 +10,12 @@ import {
   makeSelectLoading,
   makeSelectError
 } from 'containers/App/selectors';
-import { changeWallet, addCoin, loadCoins, loadCoinsList } from '../App/actions';
+import {
+  changeWallet,
+  addCoin,
+  loadCoins,
+  loadCoinsList
+} from '../App/actions';
 import reducer from '../App/reducer';
 import { availableCoins } from './saga';
 import HomePage from './HomePage';
