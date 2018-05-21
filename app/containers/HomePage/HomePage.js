@@ -46,7 +46,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
                 />
               </label>
             </form>
-            <h2>Add a Coin</h2>
+
             <form onSubmit={this.props.onAddCoin}>
               <Select
                 className="coinType"
@@ -68,7 +68,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
                 />
               </label>
               <button className="addCoinButton">
-                Add Wallet
+                Add Coin
               </button>
             </form>
             <CoinsList {...coinsListProps} />
