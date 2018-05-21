@@ -26,7 +26,7 @@ const initialState = fromJS({
   loading: false,
   error: false,
   walletID: false,
-  walletData: {
+  wallet: {
     coins: false,
   },
 });
@@ -37,10 +37,10 @@ function appReducer(state = initialState, action) {
       return state
         .set('loading', true)
         .set('error', false)
-        .setIn(['walletData', 'coins'], false);
+        .setIn(['wallet', 'coins'], false);
     case LOAD_COINS_SUCCESS:
       return state
-        .setIn(['walletData', 'coins'], action.coins)
+        .setIn(['wallet', 'coins'], action.coins)
         .set('loading', false)
         .set('walletID', action.walletID);
     case LOAD_COINS_ERROR:
@@ -51,10 +51,10 @@ function appReducer(state = initialState, action) {
       return state
         .set('loading', true)
         .set('error', false)
-        .setIn(['walletData', 'coins'], false);
+        .setIn(['wallet', 'coins'], false);
     case LOAD_COINS_LIST_SUCCESS:
       return state
-        .setIn(['walletData', 'coins'], action.coins)
+        .setIn(['wallet', 'coins'], action.coins)
         .set('loading', false)
         .set('walletID', action.walletID);
     case LOAD_COINS_LIST_ERROR:

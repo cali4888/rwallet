@@ -8,11 +8,6 @@ const selectGlobal = (state) => state.get('global');
 
 const selectRoute = (state) => state.get('route');
 
-const makeSelectCurrentUser = () => createSelector(
-  selectGlobal,
-  (globalState) => globalState.get('currentUser')
-);
-
 const makeSelectLoading = () => createSelector(
   selectGlobal,
   (globalState) => globalState.get('loading')
@@ -25,7 +20,12 @@ const makeSelectError = () => createSelector(
 
 const makeSelectWallet = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.getIn(['userData', 'walletID'])
+  (globalState) => globalState.getIn(['wallet', 'walletID'])
+);
+
+const makeSelectCoins = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.getIn(['wallet', 'coins'])
 );
 
 const makeSelectLocation = () => createSelector(
@@ -35,9 +35,9 @@ const makeSelectLocation = () => createSelector(
 
 export {
   selectGlobal,
-  makeSelectCurrentUser,
   makeSelectLoading,
   makeSelectError,
   makeSelectWallet,
+  makeSelectCoins,
   makeSelectLocation,
 };

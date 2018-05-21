@@ -21,8 +21,7 @@ const initialState = fromJS({
 function homeReducer(state = initialState, action) {
   switch (action.type) {
     case CHANGE_WALLET:
-      // Delete prefixed '@' from the github username
-      return state.set('walletID', action.name.replace(/@/gi, ''));
+      return state.set('walletID', action.id);
     default:
       return state;
   }
