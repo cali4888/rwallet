@@ -8,7 +8,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ListItem from 'components/ListItem';
-import { IssueIcon } from 'components/Icons';
 import './style.scss';
 
 export default class CoinListItem extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -26,20 +25,36 @@ export default class CoinListItem extends React.PureComponent { // eslint-disabl
 
     // Put together the content of the repository
     const content = (
-      <div className="repo-list-item">
-        <a className="repo-list-item__repo-link">
-          {item.type}, {item.address}, {item.balance}
-        </a>
-        <a className="repo-list-item__issue-link">
-          <IssueIcon className="repo-list-item__issue-icon" />
-          {item.coin_price}
-        </a>
+      <div className="coin-list-item">
+        <div className="coin-list-item__type">
+          {item.type}
+        </div>
+        <div className="coin-list-item__token">
+          {item.address}
+        </div>
+        <div className="coin-list-item__balance">
+          <i className="fas fa-coins"></i>
+          {Number.parseFloat(item.balance).toFixed(6)}
+        </div>
+        <div className="coin-list-item__price">
+          <i className="fas fa-dollar-sign"></i>
+          {Number.parseFloat(item.coin_price).toFixed(2)}
+        </div>
+        <div className="coin-list-item__net">
+          <i className="fas fa-tag"></i>
+          {Number.parseFloat(item.balance * item.coin_price).toFixed(2)}$
+        </div>
+        <div className="coin-list-item__remove">
+          <button>
+            <i className="fas fa-trash-alt"></i>
+          </button>
+        </div>
       </div>
     );
 
     // Render the content into a list item
     return (
-      <ListItem key={`repo-list-item-${item.full_name}`} item={content} />
+      <ListItem key={`coin-list-item-${item.full_name}`} item={content} />
     );
   }
 }

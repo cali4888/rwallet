@@ -1,10 +1,10 @@
-.repo-list-item {
+.coin-list-item {
   width: 100%;
   height: 100%;
   display: flex;
   align-items: space-between;
 
-  &__issue-link {
+  &__type {
     height: 100%;
     color: black;
     display: flex;
@@ -12,16 +12,48 @@
     justify-content: center;
   }
 
-  &__repo-link {
+  &__token {
     height: 100%;
     color: black;
     display: flex;
     align-items: center;
-    width: 100%;
+    font-size: 0.7em;
+    margin-left: 2em;
   }
 
-  &__issue-icon {
-    fill: #ccc;
-    margin-right: 0.25em;
+  &__balance {
+    height: 100%;
+    color: black;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+  }
+
+  &__price {
+    height: 100%;
+    color: black;
+    display: flex;
+    align-items: center;
+  }
+
+  &__net {
+    height: 100%;
+    color: black;
+    display: flex;
+    align-items: center;
+  }
+
+  &__remove {
+    height: 100%;
+    color: black;
+    display: flex;
+    align-items: center;
+    margin-left: 1em;
+    color: #ccc;
+  }
+
+  .fa-coins, .fa-dollar-sign, .fa-tag {
+    margin: 0 5px 0 15px;
+    color: #999;
   }
 }
