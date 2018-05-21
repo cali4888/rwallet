@@ -17,7 +17,7 @@ import {
   loadCoinsList
 } from '../App/actions';
 import reducer from '../App/reducer';
-import { availableCoins } from './saga';
+import saga from './saga';
 import HomePage from './HomePage';
 
 const mapDispatchToProps = (dispatch) => ({
@@ -28,8 +28,6 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onSubmitWallet: (evt) => {
     if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-    const newWalletID = evt.target.querySelector('#walletID').value;
-    dispatch(changeWallet(newWalletID));
     dispatch(loadCoins());
   },
   onAddCoin: (evt) => {
@@ -52,7 +50,7 @@ const mapStateToProps = createStructuredSelector({
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'home', reducer });
-const withSaga = injectSaga({ key: 'home', saga: availableCoins });
+const withSaga = injectSaga({ key: 'home', saga });
 
 export default compose(withReducer, withSaga, withConnect)(HomePage);
 export { mapDispatchToProps };

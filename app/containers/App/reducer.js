@@ -27,7 +27,7 @@ const initialState = fromJS({
   loading: false,
   error: false,
   availableCoins: [],
-  walletID: '',
+  walletID: 'pisarukvadim@gmail.com',
   wallet: {
     coins: false,
   },

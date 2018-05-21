@@ -35,7 +35,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
           <section>
             <form onSubmit={this.props.onSubmitWallet}>
               <label htmlFor="walletID">
-              Wallet ID
+              Email:
                 <span className="at-prefix"></span>
                 <input
                   id="walletID"
