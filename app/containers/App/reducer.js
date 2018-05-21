@@ -47,9 +47,9 @@ function appReducer(state = initialState, action) {
         .setIn(['wallet', 'coins'], false);
     case LOAD_COINS_SUCCESS:
       return state
+        .set('loggedIn', true)
         .setIn(['wallet', 'coins'], action.coins)
-        .set('loading', false)
-        .set('loggedIn', true);
+        .set('loading', false);
     case LOAD_COINS_ERROR:
       return state
         .set('error', action.error)

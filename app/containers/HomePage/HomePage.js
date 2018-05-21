@@ -33,7 +33,6 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
       className: 'coinType',
       classNamePrefix: 'select',
       defaultValue: availableCoins[0],
-      isClearable: 'True',
       isSearchable: 'True',
       name: 'coinType',
       options: availableCoins,
