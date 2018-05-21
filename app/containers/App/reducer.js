@@ -26,7 +26,7 @@ import {
 const initialState = fromJS({
   loading: false,
   error: false,
-  availableCoins: ['ZEC'],
+  availableCoins: [],
   walletID: '',
   wallet: {
     coins: false,
@@ -54,11 +54,11 @@ function appReducer(state = initialState, action) {
     case LOAD_COINS_LIST:
       return state
         .set('loading', true)
-        .set('error', false);
+        .set('error', false)
+        .set('availableCoins', fromJS([]));
     case LOAD_COINS_LIST_SUCCESS:
-      console.log(action.availableCoins);
       return state
-        .set('availableCoins', action.availableCoins)
+        .set('availableCoins', fromJS(action.availableCoins))
         .set('loading', false);
     case LOAD_COINS_LIST_ERROR:
       return state
