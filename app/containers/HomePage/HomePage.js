@@ -19,7 +19,6 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
     if (this.props.walletID && this.props.walletID.trim().length > 0) {
       this.props.onChangeWallet();
     }
-    console.log(this.props.availableCoins);
     // this.props.loadCoinsList();
   }
 
@@ -30,6 +29,8 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
       error,
       coins,
     };
+
+    const availableCoins = this.props.availableCoins.map((coin) => ({ value: coin, label: coin }));
 
     return (
       <article>
@@ -55,11 +56,11 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
               <Select
                 className="coinType"
                 classNamePrefix="select"
-                defaultValue={this.props.availableCoins[0]}
+                defaultValue={availableCoins[0]}
                 isClearable="True"
                 isSearchable="True"
                 name="coinType"
-                options={this.props.availableCoins}
+                options={availableCoins}
               />
               <label htmlFor="coinToken">
               Token

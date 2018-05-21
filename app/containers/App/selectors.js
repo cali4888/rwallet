@@ -30,7 +30,7 @@ const makeSelectCoins = () => createSelector(
 
 const makeSelectAvailableCoins = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get('availableCoins')
+  (globalState) => globalState.get('availableCoins').toJS()
 );
 
 const makeSelectLocation = () => createSelector(
