@@ -11,7 +11,14 @@
 
 .iconButton {
   color: #41ADDD;
+  &.large {
+    font-size: 1.4em;
+  }
   &:disabled {
     color: #bbb;
+  }
+  &:focus {
+    color: #2684ff;
+    outline: none;
   }
 }

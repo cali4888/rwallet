@@ -8,11 +8,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ListItem from 'components/ListItem';
+import Button from 'components/Button';
 import './style.scss';
 
 export default class CoinListItem extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { item } = this.props;
+
+    const removeButtonProps = {
+      class: 'iconButton'
+    };
 
     const content = (
       <div className="coin-list-item">
@@ -35,9 +40,9 @@ export default class CoinListItem extends React.PureComponent { // eslint-disabl
           {Number.parseFloat(item.balance * item.coin_price).toFixed(2)}$
         </div>
         <div className="coin-list-item__remove">
-          <button>
+          <Button {...removeButtonProps}>
             <i className="fas fa-trash-alt"></i>
-          </button>
+          </Button>
         </div>
       </div>
     );

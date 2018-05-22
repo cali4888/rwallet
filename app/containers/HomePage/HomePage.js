@@ -39,7 +39,6 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
     const coinSelectListProps = {
       className: 'coinTypeSelect',
       classNamePrefix: 'select',
-      defaultValue: availableCoins[0],
       isSearchable: 'True',
       name: 'coinType',
       options: availableCoins,
@@ -54,7 +53,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
     };
 
     const addCoinButtonProps = {
-      class: 'iconButton',
+      class: 'iconButton large',
       disabled: !loggedIn
     };
 
@@ -81,15 +80,21 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
               </Button>
             </form>
 
-            <form onSubmit={this.props.onAddCoin}>
-              <Select {...coinSelectListProps} />
-              <label htmlFor="coinAddress">
-                <i className="fas fa-key"></i>
-                <Input {...coinAddressInputProps} />
-              </label>
-              <Button {...addCoinButtonProps}>
-                <i className="fas fa-plus"></i>
-              </Button>
+            <form onSubmit={this.props.onAddCoin} className="addCoinForm">
+              <div className="item">
+                <Select {...coinSelectListProps} />
+              </div>
+              <div className="item">
+                <label htmlFor="coinAddress">
+                  <i className="fas fa-key"></i>
+                  <Input {...coinAddressInputProps} />
+                </label>
+              </div>
+              <div className="item">
+                <Button {...addCoinButtonProps}>
+                  <i className="fas fa-plus"></i>
+                </Button>
+              </div>
             </form>
             <CoinsList {...coinsListProps} />
           </section>
