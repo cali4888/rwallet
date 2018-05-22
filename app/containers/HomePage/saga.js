@@ -48,7 +48,7 @@ export function* getCoins() {
  */
 
 export default function* coinsData() {
-  // Watches for LOAD_COINS actions and calls getCoins when one comes in.
+  // Watches for actions and calls respective functions when one comes in.
   // By using `takeLatest` only the result of the latest API call is applied.
   // It returns task descriptor (just like fork) so we can continue execution
   // It will be cancelled automatically on component unmount
