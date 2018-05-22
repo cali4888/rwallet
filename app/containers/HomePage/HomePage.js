@@ -26,7 +26,8 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
 
     const signInButtonProps = {
       fa: loggedIn ? 'fa fas fa-check' : 'fa fas fa-sign-in-alt',
-      class: 'signIn'
+      class: 'signIn',
+      disabled: loggedIn
     };
 
     const coinSelectListProps = {

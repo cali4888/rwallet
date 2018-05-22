@@ -29,7 +29,7 @@ const Button = (props) => {
   // If the Button has a fa prop, we want to render an icon button
   if (props.fa) {
     return (
-      <button className={props.class} onClick={props.handleRoute}>
+      <button className={props.class} onClick={props.handleRoute} disabled={props.disabled}>
         <i className={props.fa} />
       </button>
     );
@@ -46,6 +46,7 @@ Button.propTypes = {
   handleRoute: PropTypes.func,
   fa: PropTypes.string,
   class: PropTypes.string,
+  disabled: PropTypes.bool,
   href: PropTypes.string,
   onClick: PropTypes.func,
   children: PropTypes.node,
