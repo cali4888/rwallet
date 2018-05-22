@@ -31,13 +31,18 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
 
     const signInButtonIcon = loggedIn ? 'fa fas fa-check' : 'fa fas fa-sign-in-alt';
     const signInButtonProps = {
-      class: 'signIn',
+      class: 'iconButton',
       disabled: loggedIn
     };
 
-    const addCoinButtonProps = {
-      class: 'addCoinButton',
-      disabled: !loggedIn
+    const availableCoins = this.props.availableCoins.map((coin) => ({ value: coin, label: coin }));
+    const coinSelectListProps = {
+      className: 'coinTypeSelect',
+      classNamePrefix: 'select',
+      defaultValue: availableCoins[0],
+      isSearchable: 'True',
+      name: 'coinType',
+      options: availableCoins,
     };
 
     const coinAddressInputProps = {
@@ -47,20 +52,15 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
       disabled: !loggedIn
     };
 
-    const availableCoins = this.props.availableCoins.map((coin) => ({ value: coin, label: coin }));
-    const coinSelectListProps = {
-      className: 'coinType',
-      classNamePrefix: 'select',
-      defaultValue: availableCoins[0],
-      isSearchable: 'True',
-      name: 'coinType',
-      options: availableCoins,
+    const addCoinButtonProps = {
+      class: 'textButton',
+      disabled: !loggedIn
     };
 
     const coinsListProps = {
       loading,
       error,
-      coins,
+      coins: loggedIn ? coins : [],
     };
 
     return (
@@ -82,12 +82,12 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
 
             <form onSubmit={this.props.onAddCoin}>
               <Select {...coinSelectListProps} />
-              <label htmlFor="coinToken">
+              <label htmlFor="coinAddress">
               Address
                 <Input {...coinAddressInputProps} />
               </label>
               <Button {...addCoinButtonProps}>
-                Add Coins
+                Add Coin
               </Button>
             </form>
             <CoinsList {...coinsListProps} />
