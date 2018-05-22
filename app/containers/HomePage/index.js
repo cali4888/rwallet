@@ -33,6 +33,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onAddCoin: (evt) => {
     if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+    console.log('add coin');
     dispatch(addCoin());
   },
   loadCoinsList: () => {

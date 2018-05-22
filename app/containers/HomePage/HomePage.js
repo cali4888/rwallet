@@ -10,6 +10,7 @@ import Select from 'react-select';
 import { Helmet } from 'react-helmet';
 import CoinsList from 'components/CoinsList';
 import Button from 'components/Button';
+import Input from 'components/Input';
 import './style.scss';
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -22,14 +23,31 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
       loggedIn, loading, error, coins
     } = this.props;
 
-    const availableCoins = this.props.availableCoins.map((coin) => ({ value: coin, label: coin }));
+    const walletIDInputProps = {
+      type: 'email',
+      value: this.props.walletID,
+      onChange: this.props.onChangeWallet
+    };
 
+    const signInButtonIcon = loggedIn ? 'fa fas fa-check' : 'fa fas fa-sign-in-alt';
     const signInButtonProps = {
-      fa: loggedIn ? 'fa fas fa-check' : 'fa fas fa-sign-in-alt',
       class: 'signIn',
       disabled: loggedIn
     };
 
+    const addCoinButtonProps = {
+      class: 'addCoinButton',
+      disabled: !loggedIn
+    };
+
+    const coinAddressInputProps = {
+      class: 'small wide',
+      type: 'text',
+      value: this.props.coinToken,
+      disabled: !loggedIn
+    };
+
+    const availableCoins = this.props.availableCoins.map((coin) => ({ value: coin, label: coin }));
     const coinSelectListProps = {
       className: 'coinType',
       classNamePrefix: 'select',
@@ -55,31 +73,22 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
             <form onSubmit={this.props.onSignIn}>
               <label htmlFor="walletID">
                 <i className="far fa-envelope"></i>
-                <input
-                  id="walletID"
-                  type="email"
-                  value={this.props.walletID}
-                  onChange={this.props.onChangeWallet}
-                />
-                <Button {...signInButtonProps} />
+                <Input {...walletIDInputProps} />
+                <Button {...signInButtonProps} >
+                  <i className={signInButtonIcon} />
+                </Button>
               </label>
             </form>
 
             <form onSubmit={this.props.onAddCoin}>
               <Select {...coinSelectListProps} />
               <label htmlFor="coinToken">
-              Token
-                <span className="at-prefix"></span>
-                <input
-                  id="coinToken"
-                  type="text"
-                  placeholder="322"
-                  value={this.props.coinToken}
-                />
+              Address
+                <Input {...coinAddressInputProps} />
               </label>
-              <button className="addCoinButton">
-                Add Coin
-              </button>
+              <Button {...addCoinButtonProps}>
+                Add Coins
+              </Button>
             </form>
             <CoinsList {...coinsListProps} />
           </section>

@@ -10,36 +10,23 @@ import React, { Children } from 'react';
 import PropTypes from 'prop-types';
 
 const Button = (props) => {
-  // Render an anchor tag
+  const disabled = props.disabled == null ? false : props.disabled;
+
   let button = (
-    <a href={props.href} onClick={props.onClick}>
+    <button onClick={props.onClick} disabled={disabled} className={props.class}>
       {Children.toArray(props.children)}
-    </a>
+    </button>
   );
 
-  // If the Button has a handleRoute prop, we want to render a button
-  if (props.handleRoute) {
+  if (props.withWrapper) {
     button = (
-      <button onClick={props.handleRoute}>
-        {Children.toArray(props.children)}
-      </button>
+      <div className="button-wrapper">
+        {button}
+      </div>
     );
   }
 
-  // If the Button has a fa prop, we want to render an icon button
-  if (props.fa) {
-    return (
-      <button className={props.class} onClick={props.handleRoute} disabled={props.disabled}>
-        <i className={props.fa} />
-      </button>
-    );
-  }
-
-  return (
-    <div className="button-wrapper">
-      {button}
-    </div>
-  );
+  return button;
 };
 
 Button.propTypes = {
