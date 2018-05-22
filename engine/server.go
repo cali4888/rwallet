@@ -23,16 +23,24 @@ func NewApiV1(app *App) *APIV1 {
 func (a *APIV1) GetHandler() http.Handler {
 	r := chi.NewRouter()
 	r.Get("/v1/wallet/", a.getWallet)
+	r.Options("/v1/wallet/", a.preflight)
+
 	r.Get("/v1/wallet/create", a.createWallet)
+	r.Options("/v1/wallet/create", a.preflight)
+
 	r.Post("/v1/wallet/addcoin", a.addCoin)
+	r.Options("/v1/wallet/addcoin", a.preflight)
+
 	r.Post("/v1/wallet/removecoin", a.removeCoin)
+	r.Options("/v1/wallet/removecoin", a.preflight)
+
 	r.Get("/v1/supportedcoins", a.getSupportedCoins)
 
 	return r
 }
 
 func (a *APIV1) getWallet(w http.ResponseWriter, r *http.Request) {
-	email := r.Header.Get("email")
+	email := r.Header.Get("Authorization")
 	wallet, err := a.app.GetWallet(email)
 	if err != nil {
 		a.writeErr(w, err, http.StatusNotFound)
@@ -43,7 +51,7 @@ func (a *APIV1) getWallet(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *APIV1) createWallet(w http.ResponseWriter, r *http.Request) {
-	email := r.Header.Get("email")
+	email := r.Header.Get("Authorization")
 	wallet, err := a.app.CreateWallet(email)
 	if err != nil {
 		a.writeErr(w, err, http.StatusInternalServerError)
@@ -54,7 +62,7 @@ func (a *APIV1) createWallet(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *APIV1) addCoin(w http.ResponseWriter, r *http.Request) {
-	email := r.Header.Get("email")
+	email := r.Header.Get("Authorization")
 
 	decoder := json.NewDecoder(r.Body)
 	var coin Coin
@@ -74,7 +82,7 @@ func (a *APIV1) addCoin(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *APIV1) removeCoin(w http.ResponseWriter, r *http.Request) {
-	email := r.Header.Get("email")
+	email := r.Header.Get("Authorization")
 
 	decoder := json.NewDecoder(r.Body)
 	var coin Coin
@@ -98,7 +106,21 @@ func (a *APIV1) getSupportedCoins(w http.ResponseWriter, r *http.Request) {
 	a.writeOk(w, coins)
 }
 
+func (a *APIV1) preflight(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Credentials", "true")
+	w.WriteHeader(http.StatusOK)
+	encoder := json.NewEncoder(w)
+	encoder.Encode(struct{}{})
+}
+
 func (a *APIV1) writeOk(w http.ResponseWriter, data interface{}) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Credentials", "true")
 	w.WriteHeader(http.StatusOK)
 
 	response := APIV1Response{Data: data}
@@ -111,6 +133,10 @@ func (a *APIV1) writeOk(w http.ResponseWriter, data interface{}) {
 }
 
 func (a *APIV1) writeErr(w http.ResponseWriter, err error, code int) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Credentials", "true")
 	w.WriteHeader(code)
 
 	response := APIV1Response{}
