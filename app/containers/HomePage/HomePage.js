@@ -43,6 +43,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
       isSearchable: 'True',
       name: 'coinType',
       options: availableCoins,
+      isDisabled: !loggedIn
     };
 
     const coinAddressInputProps = {
@@ -53,7 +54,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
     };
 
     const addCoinButtonProps = {
-      class: 'textButton',
+      class: 'iconButton',
       disabled: !loggedIn
     };
 
@@ -74,20 +75,20 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
               <label htmlFor="walletID">
                 <i className="far fa-envelope"></i>
                 <Input {...walletIDInputProps} />
-                <Button {...signInButtonProps} >
-                  <i className={signInButtonIcon} />
-                </Button>
               </label>
+              <Button {...signInButtonProps} >
+                <i className={signInButtonIcon} />
+              </Button>
             </form>
 
             <form onSubmit={this.props.onAddCoin}>
               <Select {...coinSelectListProps} />
               <label htmlFor="coinAddress">
-              Address
+                <i className="fas fa-key"></i>
                 <Input {...coinAddressInputProps} />
               </label>
               <Button {...addCoinButtonProps}>
-                Add Coin
+                <i className="fas fa-plus"></i>
               </Button>
             </form>
             <CoinsList {...coinsListProps} />

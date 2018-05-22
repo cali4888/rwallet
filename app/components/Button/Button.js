@@ -8,6 +8,7 @@
 
 import React, { Children } from 'react';
 import PropTypes from 'prop-types';
+import './style.scss';
 
 const Button = (props) => {
   const disabled = props.disabled == null ? false : props.disabled;

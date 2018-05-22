@@ -11,4 +11,7 @@
 
 .iconButton {
   color: #41ADDD;
+  &:disabled {
+    color: #bbb;
+  }
 }

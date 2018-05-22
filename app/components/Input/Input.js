@@ -8,13 +8,14 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import './style.scss';
 
 const Input = (props) => (
   <input
     className={`inputComponent ${props.class == null ? '' : props.class}`}
     type={props.type}
     value={props.value}
-    onChange={props.onChange == null ? '' : props.onChange}
+    onChange={props.onChange}
     disabled={props.disabled == null ? false : props.disabled}
   />
 );
