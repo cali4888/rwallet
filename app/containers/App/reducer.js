@@ -20,6 +20,7 @@ import {
   LOAD_COINS_LIST,
   LOAD_COINS_LIST_SUCCESS,
   LOAD_COINS_LIST_ERROR,
+  ADDED_COIN,
 } from './constants';
 
 // The initial state of the App
@@ -46,6 +47,7 @@ function appReducer(state = initialState, action) {
         .set('error', false)
         .setIn(['wallet', 'coins'], false);
     case LOAD_COINS_SUCCESS:
+    case ADDED_COIN:
       return state
         .set('loggedIn', true)
         .setIn(['wallet', 'coins'], action.coins)

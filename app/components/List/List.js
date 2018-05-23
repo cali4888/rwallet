@@ -10,7 +10,7 @@ const List = (props) => {
   // If we have items, render them
   if (props.items) {
     content = props.items.map((item) => (
-      <ComponentToRender key={`item-${item.id}`} item={item} />
+      <ComponentToRender key={`item-${item.address}`} item={item} func={props.func} />
     ));
   } else {
     // Otherwise render a single component
@@ -29,6 +29,7 @@ const List = (props) => {
 List.propTypes = {
   component: PropTypes.func.isRequired,
   items: PropTypes.array,
+  func: PropTypes.func
 };
 
 export default List;

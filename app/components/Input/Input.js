@@ -15,6 +15,7 @@ const Input = (props) => (
     className={`inputComponent ${props.class == null ? '' : props.class}`}
     type={props.type}
     value={props.value}
+    name={props.name}
     onChange={props.onChange}
     disabled={props.disabled == null ? false : props.disabled}
   />
@@ -25,6 +26,7 @@ Input.propTypes = {
   class: PropTypes.string,
   type: PropTypes.string,
   value: PropTypes.any,
+  name: PropTypes.string,
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
 };

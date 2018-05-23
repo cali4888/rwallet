@@ -14,6 +14,7 @@ import {
 import {
   changeWallet,
   addCoin,
+  removeCoin,
   loadCoins,
   loadCoinsList
 } from '../App/actions';
@@ -33,8 +34,20 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onAddCoin: (evt) => {
     if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-    console.log('add coin');
-    dispatch(addCoin());
+    const coinType = evt.target.querySelector("input[name='coinType']").value;
+    const coinAddress = evt.target.querySelector("input[name='coinAddress']").value;
+    if (coinType !== '' && coinAddress !== '') {
+      dispatch(addCoin(coinType, coinAddress));
+    }
+  },
+  onRemoveCoin: (evt) => {
+    if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+
+    const coinType = evt.target.getAttribute('data-cointype');
+    const coinAddress = evt.target.getAttribute('data-coinaddress');
+    if (coinType !== '' && coinAddress !== '') {
+      dispatch(removeCoin(coinType, coinAddress));
+    }
   },
   loadCoinsList: () => {
     dispatch(loadCoinsList());

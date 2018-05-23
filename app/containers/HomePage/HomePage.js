@@ -20,12 +20,12 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
 
   render() {
     const {
-      loggedIn, loading, error, coins
+      loggedIn, loading, error, coins, walletID
     } = this.props;
 
     const walletIDInputProps = {
       type: 'email',
-      value: this.props.walletID,
+      value: walletID,
       onChange: this.props.onChangeWallet
     };
 
@@ -48,7 +48,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
     const coinAddressInputProps = {
       class: 'small wide',
       type: 'text',
-      value: this.props.coinToken,
+      name: 'coinAddress',
       disabled: !loggedIn
     };
 
@@ -61,6 +61,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
       loading,
       error,
       coins: loggedIn ? coins : [],
+      onRemoveCoin: this.props.onRemoveCoin
     };
 
     return (
@@ -121,6 +122,7 @@ HomePage.propTypes = {
   onChangeWallet: PropTypes.func,
   onSignIn: PropTypes.func,
   onAddCoin: PropTypes.func,
+  onRemoveCoin: PropTypes.func,
   coinType: PropTypes.string,
   coinToken: PropTypes.string,
 };

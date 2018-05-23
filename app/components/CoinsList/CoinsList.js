@@ -6,7 +6,7 @@ import ListItem from 'components/ListItem';
 import LoadingIndicator from 'components/LoadingIndicator';
 import CoinListItem from 'containers/CoinListItem';
 
-const CoinsList = ({ loading, error, coins }) => {
+const CoinsList = ({ loading, error, coins, onRemoveCoin }) => {
   if (loading) {
     return <List component={LoadingIndicator} />;
   }
@@ -19,7 +19,7 @@ const CoinsList = ({ loading, error, coins }) => {
   }
 
   if (coins !== false && coins !== undefined) {
-    return <List items={coins} component={CoinListItem} />;
+    return <List items={coins} component={CoinListItem} func={onRemoveCoin} />;
   }
 
   return null;
@@ -28,7 +28,8 @@ const CoinsList = ({ loading, error, coins }) => {
 CoinsList.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.any,
-  coins: PropTypes.any
+  coins: PropTypes.any,
+  onRemoveCoin: PropTypes.func
 };
 
 export default CoinsList;

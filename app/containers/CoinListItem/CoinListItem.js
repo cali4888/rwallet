@@ -16,7 +16,8 @@ export default class CoinListItem extends React.PureComponent { // eslint-disabl
     const { item } = this.props;
 
     const removeButtonProps = {
-      class: 'iconButton'
+      class: 'iconButton',
+      onClick: this.props.func
     };
 
     const content = (
@@ -41,7 +42,7 @@ export default class CoinListItem extends React.PureComponent { // eslint-disabl
         </div>
         <div className="coin-list-item__remove">
           <Button {...removeButtonProps}>
-            <i className="fas fa-trash-alt"></i>
+            <i className="fas fa-trash-alt" data-cointype={item.type} data-coinaddress={item.address}></i>
           </Button>
         </div>
       </div>
@@ -56,4 +57,5 @@ export default class CoinListItem extends React.PureComponent { // eslint-disabl
 
 CoinListItem.propTypes = {
   item: PropTypes.object,
+  func: PropTypes.func
 };

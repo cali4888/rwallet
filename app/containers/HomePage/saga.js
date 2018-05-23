@@ -3,21 +3,20 @@
  */
 
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
-import request from 'utils/request';
 
-import { LOAD_COINS, LOAD_COINS_LIST } from 'containers/App/constants';
-import { coinsLoaded, coinLoadingError, coinsListLoaded, coinListLoadingError } from 'containers/App/actions';
+import { requestAvailableCoins, requestCoins, requestAddCoin, requestRemoveCoin } from 'containers/App/requestAPI';
+import { LOAD_COINS, LOAD_COINS_LIST, ADD_COIN, REMOVE_COIN } from 'containers/App/constants';
+import { coinsLoaded, coinLoadingError, coinsListLoaded, coinListLoadingError, addedCoin, addCoinError, removedCoin, removeCoinError } from 'containers/App/actions';
 import { makeSelectWallet } from 'containers/App/selectors';
 
+
 /**
- * API request/response handler
+ * Saga workers
  */
 
 export function* getAvailableCoins() {
-  const requestURL = 'http://localhost:8091/v1/supportedcoins';
-
   try {
-    const availableCoinsList = yield call(request, requestURL);
+    const availableCoinsList = yield call(requestAvailableCoins);
     yield put(coinsListLoaded(availableCoinsList.data));
   } catch (err) {
     yield put(coinListLoadingError(err));
@@ -26,20 +25,36 @@ export function* getAvailableCoins() {
 
 export function* getCoins() {
   const walletID = yield select(makeSelectWallet());
-  const requestURL = 'http://localhost:8091/v1/wallet/';
-  const options = {
-    method: 'GET',
-    mode: 'cors',
-    headers: {
-      Authorization: walletID,
-    }
-  };
 
   try {
-    const response = yield call(request, requestURL, options);
+    const response = yield call(requestCoins, walletID);
     yield put(coinsLoaded(response.data.coins));
   } catch (err) {
     yield put(coinLoadingError(err));
+  }
+}
+
+export function* addCoin(action) {
+  const walletID = yield select(makeSelectWallet());
+
+  try {
+    yield call(requestAddCoin, walletID, action.coinType, action.coinAddress);
+    const response = yield call(getCoins, walletID);
+    yield put(addedCoin(response.data.coins));
+  } catch (err) {
+    yield put(addCoinError(err));
+  }
+}
+
+export function* removeCoin(action) {
+  const walletID = yield select(makeSelectWallet());
+
+  try {
+    yield call(requestRemoveCoin, walletID, action.coinType, action.coinAddress);
+    const response = yield call(getCoins, walletID);
+    yield put(removedCoin(response.data.coins));
+  } catch (err) {
+    yield put(removeCoinError(err));
   }
 }
 
@@ -55,6 +70,8 @@ export default function* coinsData() {
 
   yield all([
     takeLatest(LOAD_COINS, getCoins),
-    takeLatest(LOAD_COINS_LIST, getAvailableCoins)
+    takeLatest(LOAD_COINS_LIST, getAvailableCoins),
+    takeLatest(ADD_COIN, addCoin),
+    takeLatest(REMOVE_COIN, removeCoin),
   ]);
 }

@@ -18,6 +18,11 @@
 import {
   CHANGE_WALLET,
   ADD_COIN,
+  ADDED_COIN,
+  ADD_COIN_ERROR,
+  REMOVE_COIN,
+  REMOVED_COIN,
+  REMOVE_COIN_ERROR,
   LOAD_COINS,
   LOAD_COINS_SUCCESS,
   LOAD_COINS_ERROR,
@@ -28,10 +33,6 @@ import {
 
 /**
  * Changes the input field of the form
- *
- * @param  {name} name The new text of the input field
- *
- * @return {object}    An action object with a type of CHANGE_USERNAME
  */
 export function changeWallet(walletID) {
   return {
@@ -43,19 +44,51 @@ export function changeWallet(walletID) {
 
 /**
  * Load the repositories, this action starts the request saga
- *
- * @return {object} An action object with a type of LOAD_REPOS
  */
-export function addCoin() {
+export function addCoin(coinType, coinAddress) {
   return {
     type: ADD_COIN,
+    coinType,
+    coinAddress
+  };
+}
+
+export function addedCoin() {
+  return {
+    type: ADDED_COIN
+  };
+}
+
+export function addCoinError(error) {
+  return {
+    type: ADD_COIN_ERROR,
+    error
+  };
+}
+
+export function removeCoin(coinType, coinAddress) {
+  return {
+    type: REMOVE_COIN,
+    coinType,
+    coinAddress
+  };
+}
+
+export function removedCoin() {
+  return {
+    type: REMOVED_COIN
+  };
+}
+
+export function removeCoinError(error) {
+  return {
+    type: REMOVE_COIN_ERROR,
+    error
   };
 }
 
 /**
  * Load the repositories, this action starts the request saga
- *
- * @return {object} An action object with a type of LOAD_REPOS
  */
 export function loadCoins() {
   return {
@@ -71,11 +104,6 @@ export function loadCoinsList() {
 
 /**
  * Dispatched when the coins are loaded by the request saga
- *
- * @param  {array} coins The coins data
- * @param  {string} walletID The current wallet
- *
- * @return {object}      An action object with a type of LOAD_REPOS_SUCCESS passing the repos
  */
 export function coinsLoaded(coins) {
   return {
@@ -93,10 +121,6 @@ export function coinsListLoaded(availableCoins) {
 
 /**
  * Dispatched when loading the repositories fails
- *
- * @param  {object} error The error
- *
- * @return {object}       An action object with a type of LOAD_REPOS_ERROR passing the error
  */
 export function coinLoadingError(error) {
   return {
