@@ -2,9 +2,9 @@
  * Gets the repositories of the user from Github
  */
 
-import { all, call, put, select, takeLatest } from 'redux-saga/effects';
+import { all, call, put, select, takeLatest, takeEvery } from 'redux-saga/effects';
 
-import { requestAvailableCoins, requestCoins, requestAddCoin, requestRemoveCoin } from 'containers/App/requestAPI';
+import { requestAvailableCoins, requestCoins, requestAddCoin, requestRemoveCoin, createWallet } from 'containers/App/requestAPI';
 import { LOAD_COINS, LOAD_COINS_LIST, ADD_COIN, REMOVE_COIN } from 'containers/App/constants';
 import { coinsLoaded, coinLoadingError, coinsListLoaded, coinListLoadingError, addedCoin, addCoinError, removedCoin, removeCoinError } from 'containers/App/actions';
 import { makeSelectWallet } from 'containers/App/selectors';
@@ -30,7 +30,12 @@ export function* getCoins() {
     const response = yield call(requestCoins, walletID);
     yield put(coinsLoaded(response.data.coins));
   } catch (err) {
-    yield put(coinLoadingError(err));
+    try {
+      const response = yield call(createWallet, walletID);
+      yield put(coinsLoaded(response.data.coins));
+    } catch (e) {
+      yield put(coinLoadingError(err));
+    }
   }
 }
 
@@ -71,7 +76,7 @@ export default function* coinsData() {
   yield all([
     takeLatest(LOAD_COINS, getCoins),
     takeLatest(LOAD_COINS_LIST, getAvailableCoins),
-    takeLatest(ADD_COIN, addCoin),
-    takeLatest(REMOVE_COIN, removeCoin),
+    takeEvery(ADD_COIN, addCoin),
+    takeEvery(REMOVE_COIN, removeCoin),
   ]);
 }

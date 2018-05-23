@@ -24,6 +24,18 @@ export function requestCoins(walletID) {
   return request(requestURL, options);
 }
 
+export function createWallet(walletID) {
+  const requestURL = 'http://localhost:8091/v1/wallet/create';
+  const options = {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      Authorization: walletID,
+    }
+  };
+  return request(requestURL, options);
+}
+
 export function requestAddCoin(walletID, type, address) {
   const requestURL = 'http://localhost:8091/v1/wallet/addcoin';
   const options = {

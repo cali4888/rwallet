@@ -6,7 +6,9 @@ import ListItem from 'components/ListItem';
 import LoadingIndicator from 'components/LoadingIndicator';
 import CoinListItem from 'containers/CoinListItem';
 
-const CoinsList = ({ loading, error, coins, onRemoveCoin }) => {
+const CoinsList = ({
+  loading, error, coins, onRemoveCoin
+}) => {
   if (loading) {
     return <List component={LoadingIndicator} />;
   }

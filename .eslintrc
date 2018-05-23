@@ -62,6 +62,9 @@
       "import/resolver": {
         "webpack": {
           "config": "./config/webpack.prod.babel.js"
+        },
+        "node": {
+          "paths": ["src"]
         }
       }
     }

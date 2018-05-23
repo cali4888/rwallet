@@ -17,7 +17,7 @@
     "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.babel.js --color -p --progress --hide-modules --display-optimization-bailout",
     "build:clean": "rimraf ./build",
     "start": "cross-env NODE_ENV=development node server",
-    "start:production": "npm run test && npm run build && npm run start:prod",
+    "start:production": "npm run build && npm run start:prod",
     "start:prod": "cross-env NODE_ENV=production node server",
     "clean": "npm run test:clean && npm run build:clean",
     "lint": "npm run lint:js",
@@ -29,17 +29,12 @@
     "test": "cross-env NODE_ENV=testing jest --coverage",
     "test:watch": "cross-env NODE_ENV=testing jest --watchAll"
   },
-  "jest": {
-    "transform": {
-      "^.+\\.jsx$": "babel-jest",
-      "^.+\\.js$": "babel-jest"
-    }
-  },
   "dependencies": {
     "babel-polyfill": "6.26.0",
     "chalk": "^2.4.1",
     "compression": "1.7.2",
     "cross-env": "5.1.4",
+    "eslint-import-resolver-alias": "^1.1.0",
     "express": "4.16.3",
     "fontfaceobserver": "2.0.13",
     "history": "4.7.2",
@@ -83,13 +78,11 @@
     "babel-preset-stage-0": "6.24.1",
     "circular-dependency-plugin": "5.0.2",
     "css-loader": "0.28.11",
-    "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "4.19.1",
     "eslint-config-airbnb": "16.1.0",
     "eslint-config-airbnb-base": "12.1.0",
     "eslint-import-resolver-webpack": "0.9.0",
-    "eslint-plugin-import": "2.11.0",
+    "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jsx-a11y": "6.0.3",
     "eslint-plugin-react": "7.7.0",
     "eslint-plugin-redux-saga": "0.6.0",
@@ -100,7 +93,6 @@
     "html-webpack-plugin": "3.2.0",
     "image-webpack-loader": "3.6.0",
     "imports-loader": "0.8.0",
-    "jest-cli": "22.4.3",
     "lint-staged": "7.0.4",
     "node-plop": "0.13.0",
     "node-sass": "^4.7.2",
