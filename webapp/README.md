@@ -5,9 +5,6 @@
 3. Run `npm install` to install dependencies.<br />
 4. Run `npm start` or `npm run start:production` to see the example app at `http://localhost:3000`.
 
-Now you're ready build your beautiful React Application!
-
-
 ## Info
 
 Dockerfile included.
