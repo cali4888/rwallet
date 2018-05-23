@@ -14,3 +14,5 @@ yarn.lock
 
 # Logs
 yarn-error.log
+
+.editorconfig
