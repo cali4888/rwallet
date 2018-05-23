@@ -30,7 +30,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
   }
 
   componentWillUnmount() {
-    this.clearInterval(this.state.updateTimer);
+    clearInterval(this.state.updateTimer);
   }
 
   render() {

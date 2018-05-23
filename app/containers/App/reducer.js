@@ -29,7 +29,7 @@ const initialState = fromJS({
   error: false,
   loggedIn: false,
   availableCoins: [],
-  walletID: 'pisarukvadim@gmail.com',
+  walletID: '',
   wallet: {
     coins: false,
   },

@@ -5,6 +5,7 @@
  */
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { WALLET_UPDATE_INTERVAL } from '../../containers/App/constants';
 
 import './style.scss';
 
@@ -25,34 +26,27 @@ export default class FeaturePage extends React.Component {
         </Helmet>
         <ol>
           <li>
-            <p className="title">Next generation JavaScript</p>
-            <p>
-              Use template strings, object destructuring, arrow functions, JSX
-              syntax and more, today.
-            </p>
-          </li>
-          <li>
-            <p className="title">Instant feedback</p>
-            <p>
-              Enjoy the best DX and code your app at the speed of thought! Your
-              saved changes to the CSS and JS are reflected instantaneously
-              without refreshing the page. Preserve application state even when
-              you update something in the underlying code!
-            </p>
-          </li>
-          <li>
-            <p className="title">Industry-standard routing</p>
+            <p className="title">Get a Wallet</p>
             <p>
               {
-                "Write composable CSS that's co-located with your components for complete modularity. Unique generated class names keep the specificity low while eliminating style clashes. Ship only the styles that are on the page for the best performance."
+                "Enter your email and press Enter. If a wallet with this email doesn't exist yet, it will be created automatically."
               }
             </p>
           </li>
           <li>
-            <p className="title">The Best Test Setup</p>
+            <p className="title">Add or Remove coins</p>
             <p>
-              Automatically guarantee code quality and non-breaking changes.
-              (Seen a react app with 99% test coverage before?)
+              {
+                "Choose a coin type, enter coin's address and press + to add coin to a wallet. Press a trash button to remove one."
+              }
+            </p>
+          </li>
+          <li>
+            <p className="title">Updated Automatically</p>
+            <p>
+              {
+                `Once you logged in, your wallet will be automatically updated every ${WALLET_UPDATE_INTERVAL / 1000} seconds. No need to refresh the page.`
+              }
             </p>
           </li>
         </ol>
