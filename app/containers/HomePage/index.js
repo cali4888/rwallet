@@ -26,7 +26,9 @@ const mapDispatchToProps = (dispatch) => ({
   onChangeWallet: (evt) => {
     if (evt !== undefined && evt.preventDefault) evt.preventDefault();
     const newWalletID = evt.target.value;
-    dispatch(changeWallet(newWalletID));
+    if (newWalletID !== '') {
+      dispatch(changeWallet(newWalletID));
+    }
   },
   loadWallet: (evt) => {
     if (evt !== undefined && evt.preventDefault) evt.preventDefault();

@@ -8,7 +8,6 @@ docker-compose*
 README.md
 LICENSE
 .vscode
-yarn.lock
 yarn-error.log
 .gitattributes
 .editorconfig

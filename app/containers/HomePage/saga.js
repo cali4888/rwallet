@@ -25,6 +25,10 @@ export function* getAvailableCoins() {
 
 export function* getCoins() {
   const walletID = yield select(makeSelectWallet());
+  if (walletID == null || walletID === '') {
+    yield put(coinLoadingError(new Error('Wallet ID cannot be empty')));
+    return;
+  }
 
   try {
     const response = yield call(requestCoins, walletID);
