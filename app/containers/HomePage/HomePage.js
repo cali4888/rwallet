@@ -82,7 +82,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
     return (
       <article>
         <Helmet>
-          <title>CryptoWalletTracker</title>
+          <title>Wallet</title>
         </Helmet>
         <div className="home-page">
           <section>
