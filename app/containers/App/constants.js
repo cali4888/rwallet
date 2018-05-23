@@ -9,6 +9,7 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
+export const WALLET_UPDATE_INTERVAL = 60 * 1000;
 export const CREATE_WALLET = 'rwallet/Home/CREATE_WALLET';
 export const CHANGE_WALLET = 'rwallet/Home/CHANGE_WALLET';
 export const ADD_COIN = 'rwallet/App/ADD_COIN';

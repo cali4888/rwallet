@@ -21,14 +21,9 @@ export default class FeaturePage extends React.Component {
     return (
       <div className="feature-page">
         <Helmet>
-          <title>Feature Page</title>
-          <meta
-            name="description"
-            content="Feature page of React.js Boilerplate application"
-          />
+          <title>FAQ</title>
         </Helmet>
-        <h1>Features</h1>
-        <ul>
+        <ol>
           <li>
             <p className="title">Next generation JavaScript</p>
             <p>
@@ -60,8 +55,7 @@ export default class FeaturePage extends React.Component {
               (Seen a react app with 99% test coverage before?)
             </p>
           </li>
-        </ul>
-        <i>and much more...</i>
+        </ol>
       </div>
     );
   }

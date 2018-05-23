@@ -11,11 +11,26 @@ import { Helmet } from 'react-helmet';
 import CoinsList from 'components/CoinsList';
 import Button from 'components/Button';
 import Input from 'components/Input';
+import { WALLET_UPDATE_INTERVAL } from '../../containers/App/constants';
 import './style.scss';
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  state = {
+    updateTimer: null
+  };
+
   componentDidMount() {
     this.props.loadCoinsList();
+    const updateTimer = setInterval(() => {
+      if (this.props.loggedIn) {
+        this.props.loadWallet();
+      }
+    }, WALLET_UPDATE_INTERVAL);
+    this.setState({ updateTimer }); // eslint-disable-line react/no-did-mount-set-state
+  }
+
+  componentWillUnmount() {
+    this.clearInterval(this.state.updateTimer);
   }
 
   render() {
@@ -71,7 +86,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
         </Helmet>
         <div className="home-page">
           <section>
-            <form onSubmit={this.props.onSignIn}>
+            <form onSubmit={this.props.loadWallet}>
               <label htmlFor="walletID">
                 <i className="far fa-envelope"></i>
                 <Input {...walletIDInputProps} />
@@ -120,7 +135,7 @@ HomePage.propTypes = {
   availableCoins: PropTypes.array,
   walletID: PropTypes.string,
   onChangeWallet: PropTypes.func,
-  onSignIn: PropTypes.func,
+  loadWallet: PropTypes.func,
   onAddCoin: PropTypes.func,
   onRemoveCoin: PropTypes.func,
   coinType: PropTypes.string,

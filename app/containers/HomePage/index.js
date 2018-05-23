@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch) => ({
     const newWalletID = evt.target.value;
     dispatch(changeWallet(newWalletID));
   },
-  onSignIn: (evt) => {
+  loadWallet: (evt) => {
     if (evt !== undefined && evt.preventDefault) evt.preventDefault();
     dispatch(loadCoins());
   },
